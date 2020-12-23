@@ -29,23 +29,7 @@ public class Customer {
       double thisAmount = 0;
 
       // 비디오 종류별 대여료 계산
-      switch (each.getMovie().getPriceCode()) {
-        case Movie.REGULAR:
-          thisAmount += 2;
-          if (each.getDaysRented() > 2) {
-            thisAmount += (each.getDaysRented() - 2) * 1.5;
-          }
-          break;
-        case Movie.NEW_RELEASE:
-          thisAmount += each.getDaysRented() * 3;
-          break;
-        case Movie.CHILDREN:
-          thisAmount += 1.5;
-          if (each.getDaysRented() > 3) {
-            thisAmount += (each.getDaysRented() - 3) * 1.5;
-          }
-          break;
-      }
+      thisAmount = amountFor(each);
       // 적립포인트를 1 포인트 증가
       frequentRenterPoints++;
       // 최신물을 이틀 이상 대여하면 보너스 포인트 지급
@@ -62,6 +46,28 @@ public class Customer {
     // 푸터 행 추가
     result += "누적 대여료: " + totalAmount + "\n";
     result += "적립 포인트: " + frequentRenterPoints + "\n";
+    return result;
+  }
+
+  private double amountFor(Rental aRental) {
+    double result = 0;
+    switch (aRental.getMovie().getPriceCode()) {
+      case Movie.REGULAR:
+        result += 2;
+        if (aRental.getDaysRented() > 2) {
+          result += (aRental.getDaysRented() - 2) * 1.5;
+        }
+        break;
+      case Movie.NEW_RELEASE:
+        result += aRental.getDaysRented() * 3;
+        break;
+      case Movie.CHILDREN:
+        result += 1.5;
+        if (aRental.getDaysRented() > 3) {
+          result += (aRental.getDaysRented() - 3) * 1.5;
+        }
+        break;
+    }
     return result;
   }
 
