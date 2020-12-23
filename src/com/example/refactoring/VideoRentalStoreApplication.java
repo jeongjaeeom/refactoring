@@ -15,7 +15,9 @@ public class VideoRentalStoreApplication {
     teddy.addRental(rentalBlackPanther);
 
     String result = teddy.statement();
-    System.out.println(result);
+    if (result.contains("누적 대여료: 9.5")) {
+      System.out.println("성공");
+    }
   }
 
 }
